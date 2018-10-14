@@ -1,6 +1,6 @@
 # Saltwater backend for Manatee chat
 
-# Prerequisite
+## Prerequisite
 * JDK 8
 * sbt 2.12.6
 
