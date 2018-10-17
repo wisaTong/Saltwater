@@ -17,6 +17,8 @@ install:
   - ./scripts/install.sh
 scripts:
   - sbt test
+after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PWD
   - sbt docker:publish
   - ./scripts/deploy-container.sh
+
