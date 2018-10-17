@@ -1,0 +1,22 @@
+language: scala
+scala:
+  - 2.12.6
+before_install:
+  - openssl aes-256-cbc -K $encrypted_19aeec5168c7_key -iv $encrypted_19aeec5168c7_iv
+    -in credentials.tar.gz.enc -out credentials.tar.gz -d
+
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export
+    CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud version
+
+  - chmod a+x ./scripts/install.sh
+  - chmod a+x ./scripts/deploy-container.sh
+install:
+  - ./scripts/install.sh
+scripts:
+  - sbt test
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PWD
+  - sbt docker:publish
+  - ./scripts/deploy-container.sh
