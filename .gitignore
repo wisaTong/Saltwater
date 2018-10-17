@@ -6,3 +6,7 @@ target
 /.project
 /.settings
 /RUNNING_PID
+
+# ignore credentials
+salt-service.json
+*.tar.gz
