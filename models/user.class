@@ -1,0 +1,2 @@
+case class User(val name : _root_.scala.Predef.String, val Id : scala.Int) extends scala.AnyRef with scala.Product with scala.Serializable {
+}
