@@ -19,10 +19,4 @@ class WebSocketActor(out: ActorRef) extends Actor {
       )
     }
   }
-  override def preStart(): Unit = {
-    Actor.actorList += out
-  }
-  override def postStop(): Unit = {
-    Actor.actorList -= out
-  }
 }
