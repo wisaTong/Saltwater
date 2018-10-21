@@ -1,9 +1,10 @@
 package actor
 
 import akka.actor._
+import scala.collection.mutable.ArrayBuffer
 
 object Actor {
-  var actorList = scala.collection.mutable.ArrayBuffer.empty[ActorRef]
+  var actorList: ArrayBuffer[ActorRef] = scala.collection.mutable.ArrayBuffer.empty
 }
 
 object WebSocketActor {
@@ -11,10 +12,9 @@ object WebSocketActor {
 }
 
 class WebSocketActor(out: ActorRef) extends Actor {
-  var actor = Actor
-  def receive = {
+  override def receive: Receive = {
     case msg: String => {
-      actor.actorList.map(actor =>
+      Actor.actorList.map( actor =>
         actor ! msg
       )
     }
