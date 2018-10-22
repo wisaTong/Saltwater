@@ -1,12 +1,25 @@
 # Saltwater backend for Manatee chat
 
-## Prerequisite
+Manatee chat is lightweight web chat application for anyone who wants to communicate online without much overhead 
+like facebook, twitter or any other chat platform.
+
+Saltwater is a back-end side of Manatee chat project build with Scala using Play framework.
+
+build status:
+   * master : &nbsp;[![Build Status](https://travis-ci.com/wisaTong/Saltwater.svg?branch=master)](https://travis-ci.com/wisaTong/Saltwater)
+   * develop : &nbsp;[![Build Status](https://travis-ci.com/wisaTong/Saltwater.svg?branch=develop)](https://travis-ci.com/wisaTong/Saltwater)
+   
+### Prerequisite
 * JDK 8
-* sbt 2.12.6
-
-
-## Test
-* sbt test
-
-## Standard command
+* sbt 1.2.3
+### Standard command
 * sbt clean | compile | test
+
+### Other resources
+* [Github wiki](https://github.com/wisaTong/Saltwater/wiki)
+* [Iteration plans](https://github.com/wisaTong/Saltwater/wiki/Iteration-plans) (tasks in Asana also documented here)
+* [Asana - project manager]() (Asana account needed)
+* [Issues](https://github.com/wisaTong/Saltwater/issues)
+
+#### related project:
+* [Freshwater project - frontend for Manatee chat](https://github.com/wisaTong/Freshwater)
