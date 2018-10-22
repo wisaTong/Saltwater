@@ -7,7 +7,7 @@ import org.scalatest.junit.JUnitRunner
 import models.User
 
 @RunWith(classOf[JUnitRunner])
-class modelsSpec
+class ModelSpec
   extends UnitSpec {
 
   "Test models " should {
