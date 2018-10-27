@@ -7,18 +7,9 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.12.6"
 
-libraryDependencies ++= Seq(
-  guice
-  , "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
-  , "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test
-  , "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.6"
-)
-
-excludeDependencies ++= Seq(
-  ExclusionRule("com.typesafe.play", "play-java")
-  , ExclusionRule("com.typesafe.play", "play-json")
-)
-
+libraryDependencies += guice
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test
 
 // Fix docker PID issue
 javaOptions in Universal ++= Seq(

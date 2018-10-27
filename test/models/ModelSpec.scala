@@ -1,9 +1,10 @@
 package models
 
-import base.UnitSpec
 import org.joda.time.DateTime
+import base.UnitSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
+import models.User
 
 @RunWith(classOf[JUnitRunner])
 class ModelSpec
