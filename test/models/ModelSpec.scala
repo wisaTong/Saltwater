@@ -1,6 +1,5 @@
 package models
 
-import akka.stream.StreamRefMessages.ActorRef
 import base.UnitSpec
 import org.joda.time.DateTime
 import org.junit.runner.RunWith
