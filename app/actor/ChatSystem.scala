@@ -1,6 +1,6 @@
 package actor
 
-import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.actor.ActorSystem
 
 object ChatSystem {
   val system: ActorSystem = ActorSystem("ChatSystem")

@@ -5,7 +5,7 @@ import play.api.libs.streams.ActorFlow
 import javax.inject.Inject
 import akka.actor.{ActorSystem, Props}
 import akka.stream.Materializer
-import actor.UserActor
+import actor.{ChatSystem, UserActor}
 
 class ActorController @Inject()(cc:ControllerComponents)
                                (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
@@ -13,6 +13,7 @@ class ActorController @Inject()(cc:ControllerComponents)
   def socket: WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { ref =>
       val act:Props = UserActor.props
+      ChatSystem.lounge ! ref
       act
     }
   }
