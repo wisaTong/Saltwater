@@ -12,9 +12,8 @@ class ActorController @Inject()(cc:ControllerComponents)
 
   def socket: WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { ref =>
-      val act:Props = UserActor.props
       ChatSystem.lounge ! ref
-      act
+      UserActor.props
     }
   }
 
