@@ -2,11 +2,11 @@ package actor
 
 import akka.actor._
 
-object PublicRoomActor {
-  def props: Props = Props[PublicRoomActor]
+object PrivateRoomActor {
+  def props: Props = Props[PrivateRoomActor]
 }
 
-class PublicRoomActor extends WebSocketActor {
+class PrivateRoomActor extends WebSocketActor {
   override def receive: Receive = {
     case actorRef: ActorRef => actorList += actorRef
     case msg: String => actorList.foreach(actor => actor ! msg)

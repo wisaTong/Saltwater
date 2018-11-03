@@ -3,7 +3,7 @@ package actor
 import akka.actor._
 
 object UserActor {
-  def props: Props = Props(new UserActor)
+  def props: Props = Props[UserActor]
 }
 
 class UserActor extends Actor {
