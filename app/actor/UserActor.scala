@@ -8,6 +8,6 @@ object UserActor {
 
 class UserActor extends Actor {
   override def receive: Receive = {
-    case msg: String => ChatSystem.lounge ! toObject(msg)(Message).get
+    case msg: Message => ChatSystem.lounge ! toObject(msg)(Message).get
   }
 }
