@@ -1,13 +1,14 @@
 package actor
 
 import akka.actor._
+import models.Message
 
 object UserActor {
   def props: Props = Props(new UserActor)
 }
 
 class UserActor extends Actor {
-  override def receive: Receive = {
-    case msg: Message => ChatSystem.lounge ! toObject(msg)(Message).get
+  override def receiave: Receive = {
+      case msg: Message => ChatSystem.lounge ! toObject(msg)(Message).get
   }
 }

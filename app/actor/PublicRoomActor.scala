@@ -1,6 +1,7 @@
 package actor
 
 import akka.actor._
+import Message
 
 object PublicRoomActor {
   def props: Props = Props(new PublicRoomActor)
