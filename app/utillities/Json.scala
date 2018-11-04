@@ -1,6 +1,7 @@
 package utillities
 
 import com.fasterxml.jackson.databind.{ObjectMapper, PropertyNamingStrategy}
+import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 
@@ -15,6 +16,7 @@ trait Json {
 object Json {
 
   private val mapper = new ObjectMapper with ScalaObjectMapper
+  mapper.registerModule(new JodaModule)
   mapper.registerModule(DefaultScalaModule)
   mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
 
