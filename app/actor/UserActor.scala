@@ -1,6 +1,8 @@
 package actor
 
 import akka.actor._
+import models.Message
+import utillities.Json
 
 object UserActor {
   def props: Props = Props(new UserActor)
@@ -8,6 +10,6 @@ object UserActor {
 
 class UserActor extends Actor {
   override def receive: Receive = {
-    case msg: String => ChatSystem.lounge ! msg
+    case jsonstring: String => ChatSystem.lounge ! Json.toObject[Message](jsonstring).get
   }
 }
