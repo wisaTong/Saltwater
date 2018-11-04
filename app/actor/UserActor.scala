@@ -5,7 +5,7 @@ import models.Message
 import utillities.Json
 
 object UserActor {
-  def props: Props = Props(new UserActor)
+  def props: Props = Props[UserActor]
 }
 
 class UserActor extends Actor {
