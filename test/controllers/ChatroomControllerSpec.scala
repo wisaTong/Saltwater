@@ -4,26 +4,30 @@ import base.UnitSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import play.api.libs.json.Json
-import play.api.test.{FakeHeaders, FakeRequest}
+import play.api.test.FakeRequest
 import play.api.test.Helpers.{POST, route, status, _}
-import utillities.Config
 
 @RunWith(classOf[JUnitRunner])
 class ChatroomControllerSpec
   extends UnitSpec {
 
   "POST /api/createroom" should {
-    "return Get Request and Deleted" in {
-      val fakeRequest1 = FakeRequest(POST, "/api/createroom").withJsonBody(Json.parse("""{"name": "newRoom"}"""))
-      val testObj1 = route(app, fakeRequest1).get
-      status(testObj1) mustBe OK
-      contentAsString(testObj1) mustBe "New Room newRoom Created"
+    "return 200 OK with roomname" in {
+      val fakeRequest = FakeRequest(POST, "/api/createroom").withJsonBody(Json.parse("""{"name": "newRoom"}"""))
+      val testObj = route(app, fakeRequest).get
 
-      val fakeRequest2 = FakeRequest(DELETE,"/api/deleteroom")
-      val testObj2 = route(app,fakeRequest2).get
-      status(testObj2) mustBe OK
-      contentAsString(testObj2) mustBe "deleted"
+      status(testObj) mustBe OK
+      contentAsString(testObj) mustBe "New Room newRoom Created"
     }
+  }
 
+  "DELETE /api/deleteroom" should {
+    "return 200 OK" in {
+      val fakeRequest = FakeRequest(DELETE, "/api/deleteroom")
+      val testObj = route(app, fakeRequest).get
+
+      status(testObj) mustBe OK
+      contentAsString(testObj) mustBe "deleted"
+    }
   }
 }
