@@ -6,24 +6,24 @@ import akka.actor.{ActorRef, ActorSystem, PoisonPill}
 import akka.util.Timeout
 import play.api.Logger
 
-import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.FiniteDuration
 import scala.util.{Failure, Success}
 
 object ChatSystem {
 
-  implicit val timeout = Timeout(FiniteDuration(10, TimeUnit.SECONDS))
+  implicit val timeout: Timeout = Timeout(FiniteDuration(10, TimeUnit.SECONDS))
 
   val system: ActorSystem = ActorSystem("ChatSystem")
-  val lounge = system.actorOf(ChatRoomActor.props)
+  val lounge: ActorRef = system.actorOf(ChatRoomActor.props)
 
   def createRoom(name: String): ActorRef =
     system.actorOf(ChatRoomActor.props, name)
 
   def deleteRoom(name: String): Unit = {
-    system.actorSelection(s"/user/$name").resolveOne.onComplete{
+    system.actorSelection(s"/user/$name").resolveOne.onComplete {
       case Success(actor) => actor ! PoisonPill
-      case Failure(exception) => Logger.warn(s"cannot find $name actor")
+      case Failure(_) => Logger.warn(s"cannot find actor named '$name'")
     }
   }
 
