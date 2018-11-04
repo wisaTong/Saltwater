@@ -21,18 +21,36 @@ class JsonSpec
 
   "toObject" should {
     "return Object with correct attributes" in {
-      val jsonString =
+      val userJson =
         """
           | {
-          | "name": "wisa",
-          | "id": "6010545901"
+          |   "name": "wisa"
+          |   , "id": "6010545901"
           | }
         """.stripMargin
 
-      val user = Json.toObject[User](jsonString).get
+      val user = Json.toObject[User](userJson).get
 
+      user mustNot equal(None)
       user.name mustBe "wisa"
       user.id mustBe "6010545901"
+
+      val msgJson =
+        """
+          | {
+          |   "id": "6010545901"
+          |   , "message": "Test message"
+          |   , "time": "1999-05-29T07:42:22Z"
+          | }
+        """.stripMargin
+
+      val msg = Json.toObject[Message](msgJson).get
+
+      msg mustNot equal(None)
+      msg.id mustBe "6010545901"
+      msg.message mustBe "Test message"
+      msg.time.year.getAsString mustBe "1999"
+
     }
   }
 
