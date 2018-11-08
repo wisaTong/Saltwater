@@ -1,6 +1,7 @@
 package utilities
 
 import base.UnitSpec
+import mocks.MessageMock
 import models.{Message, User}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -12,9 +13,9 @@ class JsonSpec
 
   "toText" should {
     "return Json String " in {
-      val testObj = Message("wisa", "Test Message")
+      val testObj = MessageMock.messageForm
 
-      testObj.toText must include("wisa")
+      testObj.toText must include("6010545811")
       testObj.toText must include("Test Message")
     }
   }
@@ -35,16 +36,7 @@ class JsonSpec
       user.name mustBe "wisa"
       user.id mustBe "6010545901"
 
-      val msgJson =
-        """
-          | {
-          |   "id": "6010545901"
-          |   , "message": "Test message"
-          |   , "time": "1999-05-29T07:42:22Z"
-          | }
-        """.stripMargin
-
-      val msg = Json.toObject[Message](msgJson).get
+      val msg = Json.toObject[Message](MessageMock.messageJsonForm).get
 
       msg mustNot equal(None)
       msg.id mustBe "6010545901"

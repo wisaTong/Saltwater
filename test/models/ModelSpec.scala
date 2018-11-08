@@ -1,7 +1,7 @@
 package models
 
 import base.UnitSpec
-import org.joda.time.DateTime
+import mocks.MessageMock
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
@@ -12,9 +12,9 @@ class ModelSpec
   "Test models " should {
     "return name and message" in {
       val testObj = User("Sea","123",null)
-      val testObj2 = Message("123","Hello",DateTime.now)
+      val testObj2 = MessageMock.messageForm
       testObj.name mustBe "Sea"
-      testObj2.message mustBe "Hello"
+      testObj2.message mustBe "Test Message"
     }
 
   }
