@@ -11,9 +11,7 @@ class ModelSpec
 
   "Test models " should {
     "return name and message" in {
-      val testObj = User("Sea","123",null)
       val testObj2 = MessageMock.messageForm
-      testObj.name mustBe "Sea"
       testObj2.message mustBe "Test Message"
     }
 

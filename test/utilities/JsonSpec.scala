@@ -2,7 +2,7 @@ package utilities
 
 import base.UnitSpec
 import mocks.MessageMock
-import models.{Message, User}
+import models.Message
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import utillities.Json
@@ -22,19 +22,6 @@ class JsonSpec
 
   "toObject" should {
     "return Object with correct attributes" in {
-      val userJson =
-        """
-          | {
-          |   "name": "wisa"
-          |   , "id": "6010545901"
-          | }
-        """.stripMargin
-
-      val user = Json.toObject[User](userJson).get
-
-      user mustNot equal(None)
-      user.name mustBe "wisa"
-      user.id mustBe "6010545901"
 
       val msg = Json.toObject[Message](MessageMock.messageJsonForm).get
 
