@@ -1,13 +1,17 @@
 package exceptions
 
-import akka.actor.ActorRef
+class ActorNotFoundException(message: String) extends Exception(message) {
 
-class ActorNotFoundException(message: String, actor: ActorRef ,cause:Throwable) extends RuntimeException(ActorNotFoundException.customMessage(actor), cause)
+  def this(message: String, cause: Throwable) {
+    this(message)
+    initCause(cause)
+  }
 
-object ActorNotFoundException  {
-  def apply(actor: ActorRef): ActorNotFoundException = this(customMessage(actor), null)
-  def apply(cause: Throwable) : ActorNotFoundException = this(Option(cause).map(_.toString).orNull, cause)
-  def apply() : ActorNotFoundException = this(null, null)
+  def this(cause: Throwable) {
+    this(Option(cause).map(_.toString).orNull, cause)
+  }
 
-  private def customMessage(actor: ActorRef): String = "Invalid actor."
+  def this() {
+    this(null: String)
+  }
 }
