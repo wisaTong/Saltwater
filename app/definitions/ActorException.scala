@@ -1,10 +1,11 @@
 package definitions
 
-object 
-class ActorNotFoundException(message: String)
-  extends Exception(message)
+object ActorException {
 
+  class ActorNotFoundException()
+    extends Exception("This actor doesn't exist.")
 
-class ActorNameNotUniqueException(m: String) {
+  class ActorNameNotUniqueException(s: String)
+    extends Exception(s"This name ($s) has already been used.")
 
 }
