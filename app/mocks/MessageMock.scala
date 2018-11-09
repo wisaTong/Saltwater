@@ -22,8 +22,8 @@ object MessageMock {
   val messageJsonForm: String =
     """
       | {
-      |   "id": "6010545901"
-      |   , "message": "Test message"
+      |   "id": "6010545811"
+      |   , "message": "Test Message"
       |   , "time": "1999-05-29T07:42:22Z"
       | }
     """.stripMargin

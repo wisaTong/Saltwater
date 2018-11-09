@@ -3,6 +3,7 @@ package utilities
 import base.UnitSpec
 import mocks.MessageMock
 import models.Message
+import org.joda.time.DateTime
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import utillities.Json
@@ -15,8 +16,8 @@ class JsonSpec
     "return Json String " in {
       val testObj = MessageMock.messageForm
 
-      testObj.toText must include("6010545811")
-      testObj.toText must include("Test Message")
+      testObj.toText must include(testObj.id)
+      testObj.toText must include(testObj.message)
     }
   }
 
@@ -26,9 +27,9 @@ class JsonSpec
       val msg = Json.toObject[Message](MessageMock.messageJsonForm).get
 
       msg mustNot equal(None)
-      msg.id mustBe "6010545901"
-      msg.message mustBe "Test message"
-      msg.time.year.getAsString mustBe "1999"
+      msg.id mustBe MessageMock.messageForm.id
+      msg.message mustBe MessageMock.messageForm.message
+      msg.time.getClass mustBe classOf[DateTime]
 
     }
   }

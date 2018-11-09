@@ -11,8 +11,8 @@ class ModelSpec
 
   "Test models " should {
     "return name and message" in {
-      val testObj2 = MessageMock.messageForm
-      testObj2.message mustBe "Test Message"
+      val testObj = MessageMock.messageForm
+      testObj.message mustBe MessageMock.messageForm.message
     }
 
   }
