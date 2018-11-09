@@ -16,8 +16,8 @@ class JsonSpec
     "return Json String " in {
       val testObj = MessageMock.messageForm
 
-      testObj.toText must include(testObj.id)
-      testObj.toText must include(testObj.message)
+      testObj.toText must include(MessageMock.messageForm.id)
+      testObj.toText must include(MessageMock.messageForm.message)
     }
   }
 
