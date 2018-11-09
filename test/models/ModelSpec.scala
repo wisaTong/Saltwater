@@ -12,7 +12,7 @@ class ModelSpec
   "Test models " should {
     "return name and message" in {
       val testObj = User("Sea","123",null)
-      val testObj2 = Message("123","Hello",DateTime.now)
+      val testObj2 = Message("123","Hello","lounge")
       testObj.name mustBe "Sea"
       testObj2.message mustBe "Hello"
     }
