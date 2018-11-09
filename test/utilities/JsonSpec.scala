@@ -12,10 +12,11 @@ class JsonSpec
 
   "toText" should {
     "return Json String " in {
-      val testObj = Message("wisa", "Test Message")
+      val testObj = Message("wisa", "Test Message" ,"lounge")
 
       testObj.toText must include("wisa")
       testObj.toText must include("Test Message")
+      testObj.toText must include("lounge")
     }
   }
 
@@ -38,8 +39,9 @@ class JsonSpec
       val msgJson =
         """
           | {
-          |   "id": "6010545901"
+          |   "sender": "6010545901"
           |   , "message": "Test message"
+          |   , "destination": "lounge"
           |   , "time": "1999-05-29T07:42:22Z"
           | }
         """.stripMargin
@@ -47,8 +49,9 @@ class JsonSpec
       val msg = Json.toObject[Message](msgJson).get
 
       msg mustNot equal(None)
-      msg.id mustBe "6010545901"
+      msg.sender mustBe "6010545901"
       msg.message mustBe "Test message"
+      msg.destination mustBe "lounge"
       msg.time.year.getAsString mustBe "1999"
 
     }
