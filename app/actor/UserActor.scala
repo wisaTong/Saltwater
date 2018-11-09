@@ -10,6 +10,6 @@ object UserActor {
 
 class UserActor extends Actor {
   override def receive: Receive = {
-    case jsonstring: String => ChatSystem.lounge ! Json.toObject[Message](jsonstring).get
+    case jsonString: String => ChatSystem.lounge ! Json.toObject[Message](jsonString).get
   }
 }
