@@ -13,17 +13,19 @@ class ChatroomControllerSpec
 
   "POST /api/createroom" should {
     "return 200 OK with roomname" in {
-      val fakeRequest = FakeRequest(POST, "/api/createroom").withJsonBody(Json.parse("""{"name": "newRoom"}"""))
+      val fakeRequest = FakeRequest(POST, "/api/createroom")
+        .withJsonBody(Json.parse("""{"name": "newRoom"}"""))
       val testObj = route(app, fakeRequest).get
 
       status(testObj) mustBe OK
-      contentAsString(testObj) mustBe "New Room newRoom Created"
+      contentAsString(testObj) mustBe "newRoom chat room created"
     }
   }
 
   "DELETE /api/deleteroom" should {
     "return 200 OK" in {
       val fakeRequest = FakeRequest(DELETE, "/api/deleteroom")
+        .withJsonBody(Json.parse("""{"name": "newRoom"}"""))
       val testObj = route(app, fakeRequest).get
 
       status(testObj) mustBe OK

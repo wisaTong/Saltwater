@@ -14,10 +14,12 @@ class JsonSpec
 
   "toText" should {
     "return Json String " in {
+
       val testObj = MessageMock.messageForm
 
-      testObj.toText must include(MessageMock.messageForm.id)
+      testObj.toText must include(MessageMock.messageForm.sender)
       testObj.toText must include(MessageMock.messageForm.message)
+      testObj.toText must include(MessageMock.messageForm.destination)
     }
   }
 
@@ -27,8 +29,9 @@ class JsonSpec
       val msg = Json.toObject[Message](MessageMock.messageJsonForm).get
 
       msg mustNot equal(None)
-      msg.id mustBe MessageMock.messageForm.id
+      msg.sender mustBe MessageMock.messageForm.sender
       msg.message mustBe MessageMock.messageForm.message
+      msg.destination mustBe MessageMock.messageForm.destination
       msg.time.getClass mustBe classOf[DateTime]
 
     }
