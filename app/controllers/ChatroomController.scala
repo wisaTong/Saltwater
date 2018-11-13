@@ -20,6 +20,7 @@ class ChatroomController @Inject()(cc: ControllerComponents)
     val name = (request.body \ "name").asOpt[String].get
 
     ChatSystem.deleteRoom(name)
+
     Ok("deleted")
   }
 }
