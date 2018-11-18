@@ -3,6 +3,7 @@ package controllers
 import actor.ChatSystem
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents}
+import services.FirebaseService
 
 @Singleton
 class ChatroomController @Inject()(cc: ControllerComponents)
@@ -12,7 +13,7 @@ class ChatroomController @Inject()(cc: ControllerComponents)
     val name = (request.body \ "name").asOpt[String].get
 
     ChatSystem.createRoom(name)
-
+    FirebaseService.save(name)
     Ok(s"$name chat room created")
   }
 
