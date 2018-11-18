@@ -19,5 +19,5 @@ class FirebaseStartupService {
   }
 
   if (FirebaseApp.getApps.isEmpty)
-    start
+  start
 }
