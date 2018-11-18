@@ -10,3 +10,4 @@ GET           /ws                    controllers.ActorController.socket
 # Chatroom api
 POST          /api/createroom        controllers.ChatroomController.create
 DELETE        /api/deleteroom        controllers.ChatroomController.delete
+
