@@ -17,6 +17,6 @@ class FirebaseStartupService {
       .build()
     FirebaseApp.initializeApp(option)
   }
-
-  start
+  if (FirebaseApp.getApps.isEmpty)
+    start
 }
