@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class FirebaseStartupService {
 
   def start = {
-    val serviceAccount: InputStream = getClass.getResourceAsStream("/service-account.json")
+    val serviceAccount: InputStream = getClass.getResourceAsStream("/salt-service.json")
     val option = new FirebaseOptions.Builder()
       .setCredentials(GoogleCredentials.fromStream(serviceAccount))
       .setDatabaseUrl("https://isp-chat-app.firebaseio.com")
@@ -18,6 +18,5 @@ class FirebaseStartupService {
     FirebaseApp.initializeApp(option)
   }
 
-  if (FirebaseApp.getApps.isEmpty)
-  start
+  if (FirebaseApp.getApps.isEmpty) start
 }
