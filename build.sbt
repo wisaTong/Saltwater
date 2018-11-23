@@ -1,7 +1,7 @@
 name := """saltwater"""
 organization := "com.example"
 
-version := "0.3.2-SNAPSHOT"
+version := "0.4.2-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   , "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
   , "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.6"
   , "com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % "2.9.7"
+  , "com.google.firebase" % "firebase-admin" % "6.5.0"
 )
 
 excludeDependencies ++= Seq(

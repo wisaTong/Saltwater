@@ -13,6 +13,9 @@ before_install:
   - tar -xzf credentials.tar.gz
   - gcloud auth activate-service-account --key-file salt-service.json
 
+  # move salt-service,json to conf/
+  - mv ./salt-service.json ./conf/salt-service.json
+
   - chmod a+x ./scripts/install.sh
   - chmod a+x ./scripts/deploy-container.sh
 install:
