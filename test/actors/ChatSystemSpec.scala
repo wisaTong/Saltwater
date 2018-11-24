@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit
 import actor.ChatSystem
 import akka.util.Timeout
 import base.UnitSpec
-import play.api.Logger
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.FiniteDuration

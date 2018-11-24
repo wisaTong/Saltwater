@@ -3,7 +3,9 @@ package models
 import org.joda.time.DateTime
 import utillities.Json
 
-case class Message(id: String
+case class Message(sender: String
                    , message: String
-                   , time: DateTime = DateTime.now())
+                   , destination: String
+                   , time: DateTime = DateTime.now()
+                  )
   extends Json
