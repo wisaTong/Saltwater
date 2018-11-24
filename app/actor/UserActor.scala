@@ -5,11 +5,11 @@ import models.Message
 import utillities.Json
 
 object UserActor {
-  def props: Props = Props[UserActor]
+  def props(ref: ActorRef): Props = Props(UserActor(ref))
 }
 
-class UserActor extends Actor {
+case class UserActor(ref: ActorRef) extends Actor {
   override def receive: Receive = {
-    case jsonString: String => ChatSystem.lounge ! Json.toObject[Message](jsonString).get
+    case jsonString: String => ref ! Json.toObject[Message](jsonString).get
   }
 }
