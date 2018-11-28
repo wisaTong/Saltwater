@@ -16,6 +16,7 @@ class FirebaseStartupService {
       .setDatabaseUrl("https://isp-chat-app.firebaseio.com")
       .build()
     FirebaseApp.initializeApp(option)
+    FirebaseService.retrieving
   }
 
   if (FirebaseApp.getApps.isEmpty) start
