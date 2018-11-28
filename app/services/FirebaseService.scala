@@ -29,5 +29,4 @@ object FirebaseService {
       override def onCancelled(error: DatabaseError): Unit = {}
     })
   }
-
 }
