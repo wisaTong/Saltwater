@@ -21,7 +21,6 @@ object FirebaseService {
     ref2.addListenerForSingleValueEvent(new ValueEventListener {
       override def onDataChange(snapshot: DataSnapshot): Unit = {
         snapshot.getChildren.forEach(data => {
-          Logger.info(data.getValue(classOf[String]))
           ChatSystem.createRoom(data.getValue(classOf[String]))
         })
       }
