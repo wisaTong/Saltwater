@@ -16,16 +16,16 @@ object FirebaseService {
     ref.updateChildrenAsync(data.asJava)
   }
 
-  def retrieving() = {
-    val ref2 = ref.child("Room").child("Create")
-    ref2.addListenerForSingleValueEvent(new ValueEventListener {
+  def chatroomRetrieving() = {
+    val roomRef = ref.child("Room").child("Create")
+    roomRef.addListenerForSingleValueEvent(new ValueEventListener {
       override def onDataChange(snapshot: DataSnapshot): Unit = {
-        snapshot.getChildren.forEach(data => {
-          ChatSystem.createRoom(data.getValue(classOf[String]))
-        })
+        snapshot.getChildren.forEach(data => ChatSystem.createRoom(data.getValue(classOf[String])))
       }
 
-      override def onCancelled(error: DatabaseError): Unit = {}
+      override def onCancelled(error: DatabaseError): Unit = {
+        Logger.info("The read failed :" + error.getCode)
+      }
     })
   }
 }
