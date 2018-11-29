@@ -16,7 +16,7 @@ object FirebaseService {
     ref.updateChildrenAsync(data.asJava)
   }
 
-  def chatroomRetrieving() = {
+  def retrievingChatrooms() = {
     val roomRef = ref.child("Room").child("Create")
     roomRef.addListenerForSingleValueEvent(new ValueEventListener {
       override def onDataChange(snapshot: DataSnapshot): Unit = snapshot.getChildren.forEach(data => ChatSystem.createRoom(data.getValue(classOf[String])))
