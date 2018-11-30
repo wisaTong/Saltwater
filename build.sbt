@@ -1,7 +1,7 @@
 name := """saltwater"""
 organization := "com.example"
 
-version := "0.5.4-SNAPSHOT"
+version := "0.6.3-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
