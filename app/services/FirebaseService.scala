@@ -11,12 +11,12 @@ object FirebaseService {
 
   def ref: DatabaseReference = database.getReference("chat")
 
-  def save(name: String) = {
+  def save(name: String): Unit = {
     val data: Map[String, AnyRef] = Map("Create" -> List(name).asJava)
-    ref.updateChildrenAsync(data.asJava)
+    ref.child("Room").updateChildrenAsync(data.asJava)
   }
 
-  def retrievingChatrooms() = {
+  def retrieveChatRooms(): Unit = {
     val roomRef = ref.child("Room").child("Create")
     roomRef.addListenerForSingleValueEvent(new ValueEventListener {
       override def onDataChange(snapshot: DataSnapshot): Unit = snapshot.getChildren.forEach(data => ChatSystem.createRoom(data.getValue(classOf[String])))
