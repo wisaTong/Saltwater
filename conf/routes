@@ -5,7 +5,7 @@
 
 # An example controller showing a sample home page
 GET           /                      controllers.SystemController.version
-GET           /ws                    controllers.ActorController.socket
+GET           /ws/:chatName          controllers.ActorController.socket(chatName: String)
 
 # Chatroom api
 POST          /api/createroom        controllers.ChatroomController.create

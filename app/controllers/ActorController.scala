@@ -1,19 +1,25 @@
 package controllers
 
-import play.api.mvc._
-import play.api.libs.streams.ActorFlow
-import javax.inject.Inject
-import akka.actor.{ActorSystem, Props}
-import akka.stream.Materializer
 import actor.{ChatSystem, UserActor}
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import javax.inject.Inject
+import play.api.libs.streams.ActorFlow
+import play.api.mvc._
+
+import scala.concurrent.Await
+import scala.concurrent.duration._
 
 class ActorController @Inject()(cc:ControllerComponents)
                                (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
 
-  def socket: WebSocket = WebSocket.accept[String, String] { request =>
+  def socket(chatName: String): WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { ref =>
-      ChatSystem.lounge ! ref
-      UserActor.props
+      val chatActor = Await.result(ChatSystem.getActor(chatName), 1 second)
+
+      chatActor ! ref
+
+      UserActor.props(chatActor)
     }
   }
 

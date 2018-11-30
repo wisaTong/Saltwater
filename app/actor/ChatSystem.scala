@@ -7,6 +7,7 @@ import akka.util.Timeout
 import definitions.ActorException.{ActorNameNotUniqueException, ActorNotFoundException}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.concurrent.duration.FiniteDuration
 import scala.util.{Failure, Success, Try}
 
@@ -27,10 +28,14 @@ object ChatSystem {
   }
 
   def deleteRoom(name: String): Unit = {
-    system.actorSelection(s"/user/$name").resolveOne.onComplete {
-      case Success(actor) => actor ! PoisonPill
+    getActor(name) onComplete {
+      case Success(ref) => ref ! PoisonPill
       case Failure(_) => throw new ActorNotFoundException(name)
     }
+  }
+
+  def getActor(name: String): Future[ActorRef] = {
+    system.actorSelection(s"/user/$name").resolveOne
   }
 
 }

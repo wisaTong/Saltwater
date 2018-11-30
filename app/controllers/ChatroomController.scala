@@ -14,14 +14,16 @@ class ChatroomController @Inject()(cc: ControllerComponents)
 
     ChatSystem.createRoom(name)
     FirebaseService.save(name)
-    Ok(s"$name chat room created")
+
+    Created(s"$name chat room created")
   }
 
   def delete = Action(parse.json) { request =>
     val name = (request.body \ "name").asOpt[String].get
 
     ChatSystem.deleteRoom(name)
+    FirebaseService.deleteRoom(name)
 
-    Ok("deleted")
+    Ok(s"$name chat room deleted")
   }
 }
