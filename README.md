@@ -11,7 +11,7 @@ build status:
 
 ## Prerequisite
    * JDK 8
-   * sbt 1.2.3
+   * sbt (>= 1.2.3)
 
 ## Installation
 Clone the repository and start your own server.
