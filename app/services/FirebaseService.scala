@@ -12,18 +12,32 @@ object FirebaseService {
   def ref: DatabaseReference = database.getReference("chat")
 
   def save(name: String): Unit = {
-    val data: Map[String, AnyRef] = Map("Create" -> List(name).asJava)
-    ref.child("Room").updateChildrenAsync(data.asJava)
+    ref.child("Room").child("Create")
+      .push().setValueAsync(name)
   }
 
-  def retrieveChatRooms(): Unit = {
+  def initChatRooms(): Unit = {
     val roomRef = ref.child("Room").child("Create")
     roomRef.addListenerForSingleValueEvent(new ValueEventListener {
-      override def onDataChange(snapshot: DataSnapshot): Unit = snapshot.getChildren.forEach(data => ChatSystem.createRoom(data.getValue(classOf[String])))
+      override def onDataChange(snapshot: DataSnapshot): Unit =
+        snapshot.getChildren.forEach(data => {
+          Logger.info(s"${data.getValue(classOf[String])} created")
+          ChatSystem.createRoom(data.getValue(classOf[String]))
+        })
 
-      override def onCancelled(error: DatabaseError): Unit = {
-        Logger.info("The read failed :" + error.getCode)
-      }
+      override def onCancelled(error: DatabaseError): Unit = Logger.error(s"Init chat rooms failed: ${error.getMessage}")
+    })
+  }
+
+  def deleteRoom(name: String): Unit = {
+    val roomRef = ref.child("Room").child("Create")
+    roomRef.addListenerForSingleValueEvent(new ValueEventListener {
+      override def onDataChange(snapshot: DataSnapshot): Unit =
+        snapshot.getChildren.asScala
+          .filter(_.getValue(classOf[String]) == name)
+          .foreach(data => data.getRef.removeValueAsync())
+
+      override def onCancelled(error: DatabaseError): Unit = Logger.error(s"deletion failed: ${error.getMessage}")
     })
   }
 }
