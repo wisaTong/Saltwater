@@ -11,7 +11,7 @@ build status:
 
 ## Prerequisite
    * JDK 8
-   * sbt 1.2.3
+   * sbt (>= 1.2.3)
 
 ## Installation
 Clone the repository and start your own server.
@@ -37,7 +37,7 @@ $ sbt run
 ### Other resources
 * [Github wiki](https://github.com/wisaTong/Saltwater/wiki)
 * [Iteration plans](https://github.com/wisaTong/Saltwater/wiki/Iteration-plans) (tasks in Asana also documented here)
-* [Asana - project manager]() (Asana account needed)
+* [Asana - project manager](https://app.asana.com/0/859032763601310/864258955335348) (Asana account needed)
 * [Issues](https://github.com/wisaTong/Saltwater/issues)
 
 #### related project:
