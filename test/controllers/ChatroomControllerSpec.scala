@@ -17,7 +17,7 @@ class ChatroomControllerSpec
         .withJsonBody(Json.parse("""{"name": "newRoom"}"""))
       val testObj = route(app, fakeRequest).get
 
-      status(testObj) mustBe OK
+      status(testObj) mustBe CREATED
       contentAsString(testObj) mustBe "newRoom chat room created"
     }
   }
@@ -29,7 +29,7 @@ class ChatroomControllerSpec
       val testObj = route(app, fakeRequest).get
 
       status(testObj) mustBe OK
-      contentAsString(testObj) mustBe "deleted"
+      contentAsString(testObj) mustBe "newRoom chat room deleted"
     }
   }
 }
