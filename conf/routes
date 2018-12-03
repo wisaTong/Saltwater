@@ -4,10 +4,11 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET           /                      controllers.SystemController.version
-GET           /ws/:chatName          controllers.ActorController.socket(chatName: String)
+GET           /                               controllers.SystemController.version
+GET           /ws/:chatName                   controllers.ActorController.socket(chatName: String)
 
 # Chatroom api
-POST          /api/createroom        controllers.ChatroomController.create
-DELETE        /api/deleteroom        controllers.ChatroomController.delete
+GET           /api/userCount/:roomName        controllers.ChatroomController.getUserCount(roomName: String)
+POST          /api/createroom                 controllers.ChatroomController.create
+DELETE        /api/deleteroom                 controllers.ChatroomController.delete
 
