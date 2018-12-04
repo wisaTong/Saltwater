@@ -3,12 +3,11 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
+# Main api
 GET           /                               controllers.SystemController.version
 GET           /ws/:chatName                   controllers.ActorController.socket(chatName: String)
 
 # Chatroom api
-GET           /api/userCount/:roomName        controllers.ChatroomController.getUserCount(roomName: String)
-POST          /api/createroom                 controllers.ChatroomController.create
-DELETE        /api/deleteroom                 controllers.ChatroomController.delete
-
+GET           /api/userCount/:roomName        controllers.ChatRoomController.getUserCount(roomName: String)
+POST          /api/createroom                 controllers.ChatRoomController.create
+DELETE        /api/deleteroom                 controllers.ChatRoomController.delete

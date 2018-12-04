@@ -5,6 +5,8 @@ import play.api.Logger
 import actor.ChatSystem
 
 import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 object FirebaseService {
   val database: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -20,12 +22,10 @@ object FirebaseService {
     val roomRef = ref.child("Room").child("Create")
     roomRef.addListenerForSingleValueEvent(new ValueEventListener {
       override def onDataChange(snapshot: DataSnapshot): Unit =
-        snapshot.getChildren.forEach(data => {
-          Logger.info(s"${data.getValue(classOf[String])} created")
-          ChatSystem.createRoom(data.getValue(classOf[String]))
-        })
+        snapshot.getChildren.forEach(data => createRoomFromSnapshot(data))
 
-      override def onCancelled(error: DatabaseError): Unit = Logger.error(s"Init chat rooms failed: ${error.getMessage}")
+      override def onCancelled(error: DatabaseError): Unit =
+        Logger.error(s"Init chat rooms failed: ${error.getMessage}")
     })
   }
 
@@ -37,7 +37,14 @@ object FirebaseService {
           .filter(_.getValue(classOf[String]) == name)
           .foreach(data => data.getRef.removeValueAsync())
 
-      override def onCancelled(error: DatabaseError): Unit = Logger.error(s"deletion failed: ${error.getMessage}")
+      override def onCancelled(error: DatabaseError): Unit =
+        Logger.error(s"deletion failed: ${error.getMessage}")
     })
+  }
+
+  private def createRoomFromSnapshot(snapshot: DataSnapshot): Unit = {
+    val chatName = snapshot.getValue(classOf[String])
+    Logger.info(s"$chatName created")
+    Future(ChatSystem.createRoom(chatName))
   }
 }
