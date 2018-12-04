@@ -19,7 +19,7 @@ class ActorController @Inject()(cc:ControllerComponents)
 
       chatActor ! ref
 
-      UserActor.props(chatActor)
+      UserActor.props(chatActor, ref)
     }
   }
 

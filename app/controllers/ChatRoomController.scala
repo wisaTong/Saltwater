@@ -4,22 +4,22 @@ import java.util.concurrent.TimeUnit
 
 import actor.ChatSystem
 import akka.actor.ActorRef
+import akka.pattern.ask
+import akka.util.Timeout
 import javax.inject.{Inject, Singleton}
-import play.api.mvc.{AbstractController, ControllerComponents, Result}
+import play.api.libs.json.{JsValue, Json}
+import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import services.FirebaseService
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import akka.pattern.ask
-import akka.util.Timeout
-
 import scala.reflect.ClassTag
 
 @Singleton
-class ChatroomController @Inject()(cc: ControllerComponents)
+class ChatRoomController @Inject()(cc: ControllerComponents)
   extends AbstractController(cc) {
 
-  def create = Action(parse.json) { request =>
+  def create: Action[JsValue] = Action(parse.json) { request =>
     val name = (request.body \ "name").asOpt[String].get
 
     ChatSystem.createRoom(name)
@@ -28,7 +28,7 @@ class ChatroomController @Inject()(cc: ControllerComponents)
     Created(s"$name chat room created")
   }
 
-  def delete = Action(parse.json) { request =>
+  def delete:Action[JsValue] = Action(parse.json) { request =>
     val name = (request.body \ "name").asOpt[String].get
 
     ChatSystem.deleteRoom(name)
@@ -42,7 +42,7 @@ class ChatroomController @Inject()(cc: ControllerComponents)
   def getUserCount(roomName: String) = Action { request =>
     val ref: ActorRef = Await.result(ChatSystem.getActor(roomName), 1 second)
     val userCount: Int = Await.result(ref ? UserCount() mapTo ClassTag(classOf[Int]), 1 second)
-    Ok(userCount.toString)
+    Ok(Json.obj("chatroom" -> s"$roomName", "onlineUserCount" -> userCount))
   }
 
 }
