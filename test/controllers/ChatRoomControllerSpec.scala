@@ -6,9 +6,13 @@ import org.scalatest.junit.JUnitRunner
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{POST, route, status, _}
+import services.FirebaseService
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 @RunWith(classOf[JUnitRunner])
-class ChatroomControllerSpec
+class ChatRoomControllerSpec
   extends UnitSpec {
 
   "POST /api/createroom" should {
@@ -19,6 +23,7 @@ class ChatroomControllerSpec
 
       status(testObj) mustBe CREATED
       contentAsString(testObj) mustBe "newRoom chat room created"
+
     }
   }
 
@@ -32,4 +37,11 @@ class ChatroomControllerSpec
       contentAsString(testObj) mustBe "newRoom chat room deleted"
     }
   }
+
+  override def afterAll(): Unit = {
+    super.afterAll()
+    Future(FirebaseService.deleteRoom("newRoom"))
+    Thread.sleep(1000)
+  }
+
 }

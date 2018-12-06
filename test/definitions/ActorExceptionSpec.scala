@@ -3,53 +3,50 @@ package definitions
 import java.util.concurrent.TimeUnit
 
 import actor.ChatSystem
+import akka.actor.ActorNotFound
 import akka.util.Timeout
 import base.UnitSpec
-import definitions.ActorException.{ActorNameNotUniqueException, ActorNotFoundException}
+import definitions.ActorException.ActorNameNotUniqueException
 
-import scala.concurrent.Promise
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.Await
+import scala.concurrent.duration.{FiniteDuration, _}
 import scala.util.{Failure, Success, Try}
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class ActorExceptionSpec extends UnitSpec {
 
   implicit val timeout: Timeout = Timeout(FiniteDuration(10, TimeUnit.SECONDS))
 
-  val TEST_ACTOR_NAME: String = "test"
 
   "create room with same name" should {
     "throw ActorNameNotUniqueException" in {
 
+      val TEST_CREATE: String = "TEST"
+
       Try {
-        ChatSystem.createRoom(TEST_ACTOR_NAME)
-        ChatSystem.createRoom(TEST_ACTOR_NAME)
+        ChatSystem.createRoom(TEST_CREATE)
+        ChatSystem.createRoom(TEST_CREATE)
       } match {
         case Failure(ex) => ex.getClass mustBe classOf[ActorNameNotUniqueException]
         case Success(_) => fail
       }
 
-      ChatSystem.deleteRoom(TEST_ACTOR_NAME)
+      ChatSystem.deleteRoom(TEST_CREATE)
 
     }
   }
 
-  // TODO improve this test (this test is incomplete)
   "search for room that does not exist" should {
-    "throw ActorNotFoundException" in {
+    "throw ActorNotFound" in {
 
-      val deleteRoom = {
-        val promise = Promise[Unit]
-        promise success ChatSystem.deleteRoom(TEST_ACTOR_NAME)
-        promise
+      val TEST_DELETE: String = "delete"
+
+      Try {
+        Await.result(ChatSystem.getActor(TEST_DELETE), 1 second)
+      } match {
+        case Success(ref) => fail(s"should not found ActorRef ${ref.path.name}")
+        case Failure(ex) => ex.getClass mustBe classOf[ActorNotFound]
       }
 
-      deleteRoom.future.onComplete {
-        case Failure(ex) => ex.getClass mustBe classOf[ActorNotFoundException]
-        case Success(_) => fail
-      }
-
-      Thread.sleep(500)
     }
   }
 
